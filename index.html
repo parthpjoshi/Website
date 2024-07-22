@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Options</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <div class="button-container">
+        <button onclick="callNumber()">Call Us</button>
+        <button onclick="raiseComplaint()">Raise a Complaint</button>
+        <button onclick="visitWebsite()">Visit Website</button>
+    </div>
+
+    <script>
+        function callNumber() {
+            window.location.href = 'tel:+1234567890'; // Replace with your number
+        }
+
+        function raiseComplaint() {
+            window.location.href = 'http://example.com/complaint'; // Replace with your complaint page URL
+        }
+
+        function visitWebsite() {
+            window.location.href = 'http://example.com'; // Replace with your website URL
+        }
+    </script>
+</body>
+</html>
