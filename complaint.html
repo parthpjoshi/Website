@@ -73,22 +73,25 @@
     <div class="form-container">
         <form action="https://formspree.io/f/{your-form-id}" method="POST">
             <input type="text" name="name" placeholder="Name" required>
-            <input type="text" name="street" placeholder="Street / Area" required>
-            <input type="text" name="landmark" placeholder="Landmark" required>
+            <input type="text" name="landmark" placeholder="Flat no./ Building" required>
+            <input type="text" name="street" placeholder="Street" required>
+            <input type="text" name="street" placeholder="Area" required>
             <input type="text" name="pincode" placeholder="Pincode" required>
             <input type="text" name="city" placeholder="City" required>
             <select name="request_type" required>
                 <option value="" disabled selected>Type of Request</option>
                 <option value="servicing">Servicing</option>
-                <option value="yearly_filter_replace">Yearly Filter Replace</option>
+                <option value="complaint">Complaint</option>
+                <option value="yearly_filter_replace">Filter Replacement</option>
                 <option value="labour_amc">Labour AMC</option>
-                <option value="filter_amc">Filter AMC</option>
+                <option value="filter_amc">Comprehensive AMC</option>
                 <option value="others">Others</option>
             </select>
             <select name="warranty_status" required>
                 <option value="" disabled selected>Product Warranty</option>
                 <option value="under_warranty">Under Warranty</option>
                 <option value="out_of_warranty">Out of Warranty</option>
+                <option value="out_of_warranty">AMC</option>
             </select>
             <div class="submit-container">
                 <button type="submit">Submit</button>
