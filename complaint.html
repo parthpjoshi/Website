@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise a Complaint</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            input, select, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Raise a Complaint</h1>
+    <div class="form-container">
+        <form action="https://formspree.io/f/{your-form-id}" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="street" placeholder="Street / Area" required>
+            <input type="text" name="landmark" placeholder="Landmark" required>
+            <input type="text" name="pincode" placeholder="Pincode" required>
+            <input type="text" name="city" placeholder="City" required>
+            <select name="request_type" required>
+                <option value="" disabled selected>Type of Request</option>
+                <option value="servicing">Servicing</option>
+                <option value="yearly_filter_replace">Yearly Filter Replace</option>
+                <option value="labour_amc">Labour AMC</option>
+                <option value="filter_amc">Filter AMC</option>
+                <option value="others">Others</option>
+            </select>
+            <select name="warranty_status" required>
+                <option value="" disabled selected>Product Warranty</option>
+                <option value="under_warranty">Under Warranty</option>
+                <option value="out_of_warranty">Out of Warranty</option>
+            </select>
+            <div class="submit-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

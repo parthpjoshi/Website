@@ -14,6 +14,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            padding: 20px;
         }
 
         h1 {
@@ -24,6 +25,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            width: 100%;
+            max-width: 300px;
         }
 
         button {
@@ -38,8 +41,6 @@
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 5px;
-            width: 100%;
-            max-width: 300px;
         }
 
         button:hover {
@@ -47,10 +48,6 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 20px;
-            }
-
             button {
                 width: 100%;
             }
@@ -61,17 +58,13 @@
     <h1>Contact Us</h1>
     <div class="button-container">
         <button onclick="callNumber()">Call Us</button>
-        <button onclick="raiseComplaint()">Raise a Complaint</button>
+        <button onclick="window.location.href='complaint.html'">Raise a Complaint</button>
         <button onclick="visitWebsite()">Visit Website</button>
     </div>
 
     <script>
         function callNumber() {
-            window.location.href = 'tel:+918888870250'; // Replace with your number
-        }
-
-        function raiseComplaint() {
-            window.location.href = 'http://example.com/complaint'; // Replace with your complaint page URL
+            window.location.href = 'tel:+1234567890'; // Replace with your number
         }
 
         function visitWebsite() {
