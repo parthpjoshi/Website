@@ -1,0 +1,9 @@
+Place your logo.jpg file here.
+
+The logo should be:
+- Format: JPEG (.jpg)
+- Recommended size: 40-50px height for best results
+- Square or rectangular format works
+- High resolution for crisp display
+
+Once you add your logo.jpg file to this images folder, it will automatically appear in the navbar.
