@@ -1,129 +1,86 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Image gallery functionality
+// Project 1 gallery logic
+document.addEventListener('DOMContentLoaded', () => {
     const mainImage = document.getElementById('mainImage');
-    const thumbnails = document.querySelectorAll('.thumbnail');
+    const thumbnails = Array.from(document.querySelectorAll('.gallery-thumbnails .thumbnail'));
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxClose = document.querySelector('.lightbox-close');
-    const lightboxPrev = document.getElementById('lightboxPrev');
-    const lightboxNext = document.getElementById('lightboxNext');
-    
-    let currentImageIndex = 0;
-    const images = [
-        'photos/Project 1/1.jpg',
-        'photos/Project 1/2.jpg',
-        'photos/Project 1/3.jpg',
-        'photos/Project 1/4.jpg',
-        'photos/Project 1/5.jpg',
-        'photos/Project 1/6.jpg',
-        'photos/Project 1/7.jpg',
-        'photos/Project 1/8.jpg',
-        'photos/Project 1/9.jpg',
-        'photos/Project 1/10.jpg'
-    ];
 
-    // Update main image and thumbnails
-    function updateMainImage(index) {
-        currentImageIndex = index;
-        mainImage.src = images[index];
-        
-        // Update active thumbnail
+    let currentIndex = 0;
+
+    function setMainImage(index) {
+        currentIndex = index;
+        mainImage.src = thumbnails[index].src;
         thumbnails.forEach((thumb, i) => {
             thumb.classList.toggle('active', i === index);
         });
     }
 
-    // Thumbnail click handlers
-    thumbnails.forEach((thumbnail, index) => {
-        thumbnail.addEventListener('click', () => {
-            updateMainImage(index);
-        });
-    });
-
-    // Navigation buttons
     prevBtn.addEventListener('click', () => {
-        const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : images.length - 1;
-        updateMainImage(newIndex);
+        let index = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+        setMainImage(index);
     });
-
     nextBtn.addEventListener('click', () => {
-        const newIndex = currentImageIndex < images.length - 1 ? currentImageIndex + 1 : 0;
-        updateMainImage(newIndex);
+        let index = (currentIndex + 1) % thumbnails.length;
+        setMainImage(index);
     });
 
-    // Lightbox functionality
-    mainImage.addEventListener('click', () => {
-        lightboxImage.src = images[currentImageIndex];
-        lightbox.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+    thumbnails.forEach((thumb, idx) => {
+        thumb.addEventListener('click', () => setMainImage(idx));
     });
 
-    // Close lightbox
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
+    // Lightbox logic
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
 
-    function closeLightbox() {
-        lightbox.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    function openLightbox(index) {
+        lightboxImg.src = thumbnails[index].src;
+        lightbox.classList.add('show');
+        lightboxImg.dataset.index = index;
     }
+    function closeLightbox() {
+        lightbox.classList.remove('show');
+    }
+    mainImage.addEventListener('click', () => openLightbox(currentIndex));
+    lightboxClose.addEventListener('click', closeLightbox);
 
-    // Lightbox navigation
     lightboxPrev.addEventListener('click', () => {
-        const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : images.length - 1;
-        updateMainImage(newIndex);
-        lightboxImage.src = images[newIndex];
+        let index = (parseInt(lightboxImg.dataset.index) - 1 + thumbnails.length) % thumbnails.length;
+        lightboxImg.src = thumbnails[index].src;
+        lightboxImg.dataset.index = index;
+        setMainImage(index);
     });
-
     lightboxNext.addEventListener('click', () => {
-        const newIndex = currentImageIndex < images.length - 1 ? currentImageIndex + 1 : 0;
-        updateMainImage(newIndex);
-        lightboxImage.src = images[newIndex];
+        let index = (parseInt(lightboxImg.dataset.index) + 1) % thumbnails.length;
+        lightboxImg.src = thumbnails[index].src;
+        lightboxImg.dataset.index = index;
+        setMainImage(index);
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (lightbox.style.display === 'flex') {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            } else if (e.key === 'ArrowLeft') {
-                lightboxPrev.click();
-            } else if (e.key === 'ArrowRight') {
-                lightboxNext.click();
-            }
-        }
+    // Close lightbox on background click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
     });
 
-    // Touch/swipe support for mobile
-    let startX = 0;
-    let endX = 0;
-
-    mainImage.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
+    // Keyboard navigation for the lightbox
+    window.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('show')) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") lightboxNext.click();
+        if (e.key === "ArrowLeft") lightboxPrev.click();
     });
 
-    mainImage.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].clientX;
-        handleSwipe();
-    });
+    // Set initial main image
+    setMainImage(0);
 
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = startX - endX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe left - next image
-                nextBtn.click();
-            } else {
-                // Swipe right - previous image
-                prevBtn.click();
-            }
-        }
+    // Hamburger menu for mobile (optional)
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+        });
     }
 });

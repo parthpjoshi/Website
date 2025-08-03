@@ -61,11 +61,14 @@ body.menu-open {
     gap: 0.8rem;
 }
 
+/* Logo size matches navbar height */
 .logo-image {
-    height: 45px;
+    padding-top: 5px;
+    height: 50px;
     width: auto;
     border-radius: 4px;
     transition: transform 0.3s ease;
+    object-fit: contain;
 }
 
 .logo-image:hover {
@@ -472,15 +475,20 @@ section {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-logo h2 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
-    
     .logo-image {
-        height: 35px;
+        height: 50px;
     }
 
     .hamburger {
         display: flex;
+        min-width: 48px;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        z-index: 1002;
     }
 
     .nav-menu {
@@ -610,225 +618,274 @@ section {
     }
 }
 
-/* Projects Page Styles */
 .projects-section {
     padding: 120px 0 80px;
-    background: #ffffff;
-    color: #000000;
+    background: #fff;
+    color: #000;
 }
 
 .projects-title {
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
-    color: #000000;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: #222;
+    letter-spacing: -1px;
 }
 
 .image-gallery {
-    max-width: 1000px;
+    max-width: 980px;
     margin: 0 auto;
+    background: #faf9f7;
+    padding: 2.2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(30,40,100,0.07);
 }
 
 .gallery-main {
     position: relative;
-    margin-bottom: 2rem;
-    border-radius: 15px;
+    margin-bottom: 1.8rem;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 18px rgba(220, 140, 60, 0.09);
+    background: #e8e5df;
+    transition: box-shadow 0.2s;
+}
+.gallery-main:focus-within, .gallery-main:hover {
+    box-shadow: 0 6px 34px rgba(220, 140, 60, 0.16);
 }
 
 .main-image {
     width: 100%;
-    height: 500px;
+    max-height: 500px;
+    min-height: 250px;
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.18s cubic-bezier(.5,.19,.9,.2);
+    background: #edebe8;
+    box-shadow: 0 2px 12px rgba(220,140,60,0.05);
 }
-
 .main-image:hover {
-    transform: scale(1.02);
+    transform: scale(1.017);
 }
 
 .image-controls {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    pointer-events: none;
+    transform: translateY(-50%);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
 }
-
-.gallery-main:hover .image-controls {
+.gallery-main:hover .image-controls,
+.gallery-main:focus-within .image-controls {
     opacity: 1;
+    pointer-events: all;
 }
 
 .nav-btn {
-    background: rgba(220, 140, 60, 0.9);
-    color: #000000;
+    background: rgba(220, 140, 60, 0.93);
+    color: #fff;
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 1.9rem;
+    box-shadow: 0 2px 10px #b08c5a22;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background .19s, transform 0.18s;
+    pointer-events: all;
+    outline: none;
+    border: 1px solid transparent;
 }
-
+.nav-btn:active,
+.nav-btn:focus {
+    border: 1px solid rgb(220, 140, 60);
+}
 .nav-btn:hover {
-    background: rgb(220, 140, 60);
+    background: #d28e27;
     transform: scale(1.1);
 }
 
 .gallery-thumbnails {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
     gap: 10px;
-    max-height: 120px;
-    overflow-y: auto;
-    padding: 10px 0;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 8px 3px;
+    scrollbar-color: rgb(220, 140, 60) #f9f9f9;
+    scrollbar-width: thin;
 }
 
 .thumbnail {
-    width: 100%;
-    height: 80px;
+    width: 82px;
+    height: 62px;
+    min-width: 82px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 7px;
     cursor: pointer;
-    transition: all 0.3s ease;
     border: 3px solid transparent;
+    opacity: 0.83;
+    transition: border 0.16s, opacity 0.18s, transform 0.18s;
+    background: #eceae7;
+    box-shadow: 0 1px 5px #e4dabd22;
 }
-
-.thumbnail:hover {
-    transform: scale(1.05);
-    border-color: rgb(220, 140, 60);
-}
-
+.thumbnail:hover,
 .thumbnail.active {
     border-color: rgb(220, 140, 60);
-    transform: scale(1.05);
+    opacity: 1;
+    transform: scale(1.04);
+    z-index: 2;
 }
 
-/* Lightbox Styles */
+/* Hide scrollbars but allow scrolling on Webkit browsers */
+.gallery-thumbnails::-webkit-scrollbar {
+    height: 7px;
+    background: #e7e3d8;
+    border-radius: 5px;
+}
+.gallery-thumbnails::-webkit-scrollbar-thumb {
+    background: rgb(220, 140, 60);
+    border-radius: 5px;
+}
+/* For Firefox, scrollbars styled above */
+
+.coming-soon {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #9f954c;
+    opacity: 0.85;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+}
+
+/* === LIGHTBOX === */
 .lightbox {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(20,18,14, 0.94);
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: 2500;
+    transition: background 0.28s ease;
+    animation: fadeInModal .4s;
+}
+.lightbox.show {
+    display: flex;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.lightbox-image {
+    max-width: 92vw;
+    max-height: 87vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 44px #b69150aa;
+    background: #191813;
+    object-fit: contain;
+    transition: box-shadow 0.19s;
 }
 
 .lightbox-close {
     position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 40px;
-    color: #ffffff;
+    top: 34px;
+    right: 46px;
+    font-size: 2.8rem;
+    color: #fffcdc;
+    font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease;
+    text-shadow: 0 2px 30px #c7ad7e55;
+    transition: color 0.19s;
+    z-index: 1;
 }
-
 .lightbox-close:hover {
     color: rgb(220, 140, 60);
 }
 
-.lightbox-image {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 10px;
-}
-
 .lightbox-controls {
+    display: flex;
+    gap: 1.2rem;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40px;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
 .lightbox-nav {
-    background: rgba(220, 140, 60, 0.8);
-    color: #000000;
-    border: none;
-    width: 60px;
-    height: 60px;
+    background: rgba(220,140,60,0.92);
+    color: #fff;
+    font-size: 2.4rem;
     border-radius: 50%;
-    font-size: 30px;
+    border: none;
+    width: 58px;
+    height: 58px;
+    box-shadow: 0 2px 10px #e3d09b4b;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 0.96;
+    transition: background 0.18s, transform 0.17s;
 }
-
 .lightbox-nav:hover {
-    background: rgb(220, 140, 60);
-    transform: scale(1.1);
+    background: #e0ab63;
+    transform: scale(1.13);
 }
 
-.coming-soon {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666666;
-    font-style: italic;
+/* ——— MOBILE OPTIMIZATION FOR GALLERY ——— */
+@media (max-width: 900px) {
+    .image-gallery {
+        padding: 1.1rem;
+    }
+    .main-image { max-height: 320px; min-height: 150px; }
+    .gallery-thumbnails { padding-bottom: 5px;}
 }
-
-/* Mobile Responsive for Projects */
-@media (max-width: 768px) {
-    .projects-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-    
-    .main-image {
-        height: 300px;
-    }
-    
-    .gallery-thumbnails {
-        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-        gap: 8px;
-    }
-    
-    .thumbnail {
-        height: 60px;
-    }
-    
-    .nav-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-    
+@media (max-width: 650px) {
+    .image-gallery { box-shadow: none;}
+    .gallery-main { border-radius: 8px;}
+    .main-image { border-radius: 6px; }
+    .lightbox-image { border-radius: 7px;}
+    .projects-title { font-size: 1.45rem;}
     .lightbox-controls {
-        padding: 0 20px;
+        gap: 0.7rem;
+        bottom: 30px;
     }
-    
-    .lightbox-nav {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-    
     .lightbox-close {
-        top: 20px;
-        right: 20px;
-        font-size: 30px;
+        top: 18px;
+        right: 12px;
+        font-size: 2.0rem;
+    }
+    .lightbox-nav {
+        width: 37px;
+        height: 37px;
+        font-size: 1.5rem;
+    }
+    .thumbnail,
+    .gallery-thumbnails .thumbnail {
+        width: 50px; min-width: 50px; height: 43px;
     }
 }
+
+/* Subtle fade-in animation for gallery images */
+@keyframes fadeInImg {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.main-image,
+.thumbnail,
+.lightbox-image {
+    animation: fadeInImg .66s;
+}
+
 
 /* Features Section */
 .features {
@@ -918,6 +975,9 @@ section {
 .contact-content {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
     margin-top: 3rem;
 }
 
@@ -926,6 +986,7 @@ section {
     flex-direction: column;
     gap: 2rem;
     max-width: 600px;
+    width: 100%;
 }
 
 .contact-item {
@@ -1046,11 +1107,23 @@ section {
     }
     
     .contact-content {
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
     }
-    
     .contact-info {
         max-width: 100%;
+        width: 100%;
+    }
+    .contact-item {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+    .contact-icon {
+        margin-bottom: 0;
+        margin-right: 1rem;
     }
     
     .footer-content {
@@ -1066,7 +1139,13 @@ section {
     
     .contact-item {
         padding: 1rem;
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 0.5rem;
+    }
+    .contact-icon {
+        margin-bottom: 0;
+        margin-right: 0.5rem;
     }
 }
