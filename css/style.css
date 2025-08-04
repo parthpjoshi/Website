@@ -71,9 +71,6 @@ body.menu-open {
     object-fit: contain;
 }
 
-.logo-image:hover {
-    transform: scale(1.05);
-}
 
 .nav-logo h2 {
     font-size: 1.8rem;
