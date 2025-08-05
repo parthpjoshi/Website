@@ -33,26 +33,24 @@ body.menu-open {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7); 
+    /* backdrop-filter: blur(10px); */
     z-index: 1000;
     transition: all 0.3s ease;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(224, 224, 224);
 }
 
-.header.scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
+
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 80px;
+    width: 100%; 
 }
 
 .nav-logo {
@@ -61,7 +59,6 @@ body.menu-open {
     gap: 0.8rem;
 }
 
-/* Logo size matches navbar height */
 .logo-image {
     padding-top: 5px;
     height: 50px;
@@ -130,7 +127,7 @@ body.menu-open {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 245, 245, 0.8) 100%), 
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(245, 245, 245, 0.2) 100%), 
                 url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
     display: flex;
     align-items: center;
@@ -148,7 +145,7 @@ body.menu-open {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2); 
 }
 
 .hero-content {
@@ -184,7 +181,18 @@ body.menu-open {
     opacity: 0;
     animation: fadeInUp 1s ease 0.9s forwards;
 }
-
+.hero-logo {
+    display: none;
+}
+/* Desktop and up: show and center image */
+@media (min-width: 768px) {
+    .hero-logo {
+        display: block;
+        margin: 0 auto 2rem auto;             /* centers image & adds 2rem below */
+        width: clamp(300px, 40vw, 600px);     /* much bigger size */
+        height: auto;                         /* maintain aspect ratio */
+    }
+}
 .btn {
     display: inline-block;
     padding: 15px 30px;
@@ -312,11 +320,6 @@ section {
     color: #fffdfd;
 }
 
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-}
-
 .stat-label {
     font-size: 1rem;
     color: #d0d0d0;
@@ -333,10 +336,6 @@ section {
     border: 1px solid #e0e0e0;
 }
 
-.stat-item:hover {
-    transform: translateY(-5px);
-    border-color:  rgb(220, 140, 60);
-}
 
 .stat-number {
     font-size: 3rem;
@@ -368,7 +367,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .services .container {
@@ -393,11 +392,6 @@ section {
     border: 1px solid #e0e0e0;
 }
 
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    border-color:  rgb(220, 140, 60);
-}
 
 .service-icon {
     width: 80px;
@@ -411,10 +405,6 @@ section {
     transition: all 0.3s ease;
 }
 
-.service-card:hover .service-icon {
-    background:  rgb(220, 140, 60);
-    transform: scale(1.1);
-}
 
 .service-icon i {
     font-size: 2rem;
@@ -486,6 +476,7 @@ section {
         justify-content: center;
         padding: 8px;
         z-index: 1002;
+        margin-left: auto;
     }
 
     .nav-menu {
@@ -569,10 +560,6 @@ section {
         grid-template-columns: 1fr;
     }
 
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
 
     .footer-content {
         grid-template-columns: 1fr;
@@ -610,9 +597,6 @@ section {
         padding: 1.5rem;
     }
 
-    .contact-form {
-        padding: 1.5rem;
-    }
 }
 
 .projects-section {
@@ -907,11 +891,6 @@ section {
     position: relative;
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    border-color: rgb(220, 140, 60);
-}
 
 .feature-icon {
     width: 70px;
@@ -930,9 +909,6 @@ section {
     color: #ffffff;
 }
 
-.feature-card:hover .feature-icon {
-    transform: scale(1.1);
-}
 
 .feature-card h3 {
     font-size: 1.4rem;
@@ -963,73 +939,6 @@ section {
     font-size: 1.1rem;
 }
 
-/* Contact Section */
-.contact {
-    background: #f9f9f9;
-    padding: 100px 0;
-}
-
-.contact-content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 600px;
-    width: 100%;
-}
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
-
-.contact-icon {
-    width: 50px;
-    height: 50px;
-    background: rgb(220, 140, 60);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.contact-icon i {
-    font-size: 1.2rem;
-    color: #ffffff;
-}
-
-.contact-details h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-}
-
-.contact-details p {
-    color: #444444;
-    line-height: 1.6;
-    margin: 0;
-}
 
 /* Footer */
 .footer {
@@ -1076,10 +985,6 @@ section {
     transition: color 0.3s ease;
 }
 
-.footer-section ul li:hover {
-    color: rgb(220, 140, 60);
-    cursor: pointer;
-}
 
 .footer-bottom {
     border-top: 1px solid #333;
@@ -1103,26 +1008,6 @@ section {
         padding: 2rem;
     }
     
-    .contact-content {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    .contact-info {
-        max-width: 100%;
-        width: 100%;
-    }
-    .contact-item {
-        flex-direction: row;
-        align-items: center;
-        text-align: left;
-        gap: 1rem;
-    }
-    .contact-icon {
-        margin-bottom: 0;
-        margin-right: 1rem;
-    }
-    
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1132,17 +1017,5 @@ section {
 @media (max-width: 480px) {
     .feature-card {
         padding: 1.5rem;
-    }
-    
-    .contact-item {
-        padding: 1rem;
-        flex-direction: row;
-        align-items: center;
-        text-align: left;
-        gap: 0.5rem;
-    }
-    .contact-icon {
-        margin-bottom: 0;
-        margin-right: 0.5rem;
     }
 }
