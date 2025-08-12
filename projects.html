@@ -74,6 +74,19 @@
     <div class="modal-content">
         <span class="modal-close">&times;</span>
 
+        <!-- Project Video Section - Full Width, Autoplay at Top -->
+        <div class="modal-video-section">
+            <div class="video-container-fullwidth">
+                <video id="projectVideo" controls autoplay muted loop class="project-video">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <!-- Spacing Section -->
+        <div class="modal-spacing"></div>
+
         <!-- Full-width Image Viewer -->
         <div class="modal-image-viewer">
             <img id="modalMainImage" src="" alt="Project Image" class="modal-main-image">
@@ -107,18 +120,20 @@
                 </div>
             </div>
         </div>
+
         <!-- Project Image Grid -->
         <div class="modal-image-grid">
             <div class="container">
-                    <h3>Project Gallery</h3>
-                    <div class="image-grid" id="modalImageGrid">
-                        <!-- Images will be dynamically loaded here -->
-                    </div>
+                <h3>Project Gallery</h3>
+                <div class="image-grid" id="modalImageGrid">
+                    <!-- Images will be dynamically loaded here -->
                 </div>
-                </div>
-                </div>
-                </div>
-                <script src="js/project.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/project.js"></script>
 </body>
 
 </html>

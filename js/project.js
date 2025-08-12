@@ -6,6 +6,7 @@ const projectData = {
         client: "Premium Client",
         duration: "4 months",
         technology: "HTML5, CSS3, JavaScript, React",
+        video: "images/Project 1/Project 1.mp4",
         images: [
             "images/Project 1/1.jpg",
             "images/Project 1/2.jpg",
@@ -17,6 +18,13 @@ const projectData = {
             "images/Project 1/8.jpg",
             "images/Project 1/9.jpg",
             "images/Project 1/10.jpg"
+        ],
+        additionalSlides: [
+            "images/Project 1/1.jpg",
+            "images/Project 1/3.jpg",
+            "images/Project 1/5.jpg",
+            "images/Project 1/7.jpg",
+            "images/Project 1/9.jpg"
         ]
     },
     2: {
@@ -25,7 +33,9 @@ const projectData = {
         client: "To be announced",
         duration: "TBA",
         technology: "TBA",
-        images: ["images/Project 1/2.jpg"] // Placeholder image
+        video: null,
+        images: ["images/Project 1/2.jpg"], // Placeholder image
+        additionalSlides: ["images/Project 1/2.jpg"]
     }
 };
 
@@ -44,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalProjectDuration = document.getElementById('modalProjectDuration');
     const modalProjectTechnology = document.getElementById('modalProjectTechnology');
     const modalImageGrid = document.getElementById('modalImageGrid');
+    const projectVideo = document.getElementById('projectVideo');
 
     let currentProject = null;
     let currentImageIdx = 0;
@@ -78,6 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load the first image immediately
         updateMainImage();
+
+        // Setup video
+        setupProjectVideo();
 
         // Show modal and prevent body scroll
         projectModal.classList.add('show');
@@ -192,6 +206,145 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeLazyLoading();
     }
 
+    // Setup project video with lazy loading and autoplay
+    function setupProjectVideo() {
+        if (!currentProject || !projectVideo) return;
+        
+        if (currentProject.video) {
+            // Add lazy loading class
+            projectVideo.classList.add('lazy-video');
+            
+            // Create loading placeholder
+            const videoContainer = projectVideo.parentElement;
+            let placeholder = videoContainer.querySelector('.video-loading-placeholder');
+            if (!placeholder) {
+                placeholder = document.createElement('div');
+                placeholder.className = 'video-loading-placeholder';
+                placeholder.innerHTML = 'Loading video...';
+                videoContainer.appendChild(placeholder);
+            }
+            
+            // Show video section
+            projectVideo.parentElement.parentElement.style.display = 'block';
+            
+            // Setup lazy loading observer for video
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadProjectVideo();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '100px 0px',
+                threshold: 0.1
+            });
+            
+            videoObserver.observe(projectVideo.parentElement);
+        } else {
+            // Hide video section if no video available
+            projectVideo.parentElement.parentElement.style.display = 'none';
+        }
+    }
+    
+    // Load project video
+    function loadProjectVideo() {
+        if (!currentProject || !projectVideo) return;
+        
+        const videoContainer = projectVideo.parentElement;
+        const placeholder = videoContainer.querySelector('.video-loading-placeholder');
+        
+        // Set video source
+        const source = projectVideo.querySelector('source');
+        source.src = currentProject.video;
+        
+        // Handle video load events
+        projectVideo.addEventListener('loadeddata', () => {
+            projectVideo.classList.remove('lazy-video');
+            projectVideo.classList.add('loaded');
+            if (placeholder) placeholder.style.display = 'none';
+            
+            // Autoplay with user gesture (muted)
+            projectVideo.muted = true;
+            projectVideo.play().catch(e => {
+                console.log('Autoplay prevented:', e);
+            });
+        });
+        
+        projectVideo.addEventListener('error', () => {
+            console.log('Error loading video:', currentProject.video);
+            if (placeholder) {
+                placeholder.innerHTML = 'Video unavailable';
+                placeholder.style.color = '#ff6b6b';
+            }
+        });
+        
+        // Start loading
+        projectVideo.load();
+    }
+
+    // Create additional slider
+    function createAdditionalSlider() {
+        if (!currentProject || !additionalSlider) return;
+        
+        additionalSlider.innerHTML = '';
+        currentSlideIdx = 0;
+        
+        if (currentProject.additionalSlides && currentProject.additionalSlides.length > 0) {
+            currentProject.additionalSlides.forEach((slideSrc, index) => {
+                const slideItem = document.createElement('div');
+                slideItem.className = 'slider-item';
+                
+                const img = document.createElement('img');
+                img.src = slideSrc;
+                img.alt = `${currentProject.title} - Additional ${index + 1}`;
+                img.style.cursor = 'pointer';
+                
+                // Click handler to show in main image viewer
+                img.addEventListener('click', () => {
+                    // Find the index in the main images array
+                    const mainImageIndex = currentProject.images.indexOf(slideSrc);
+                    if (mainImageIndex !== -1) {
+                        currentImageIdx = mainImageIndex;
+                        updateMainImage();
+                        // Scroll to top to show the main image
+                        projectModal.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+                
+                slideItem.appendChild(img);
+                additionalSlider.appendChild(slideItem);
+            });
+            
+            additionalSlider.parentElement.parentElement.style.display = 'block';
+        } else {
+            // Hide additional slider section if no slides available
+            additionalSlider.parentElement.parentElement.style.display = 'none';
+        }
+    }
+
+    // Additional slider navigation
+    function slideAdditional(direction) {
+        if (!currentProject || !currentProject.additionalSlides) return;
+        
+        const slideWidth = 320; // 300px width + 20px gap
+        const maxSlide = Math.max(0, currentProject.additionalSlides.length - 3); // Show 3 slides at a time
+        
+        if (direction === 'next') {
+            currentSlideIdx = Math.min(currentSlideIdx + 1, maxSlide);
+        } else {
+            currentSlideIdx = Math.max(currentSlideIdx - 1, 0);
+        }
+        
+        additionalSlider.scrollTo({
+            left: currentSlideIdx * slideWidth,
+            behavior: 'smooth'
+        });
+    }
+
     // Lazy loading for main project card images
     function initializeMainImageLazyLoading() {
         const lazyMainImages = document.querySelectorAll('.lazy-load-main');
@@ -277,6 +430,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal() {
         projectModal.classList.remove('show');
         document.body.style.overflow = '';
+        
+        // Stop and reset video
+        if (projectVideo) {
+            projectVideo.pause();
+            projectVideo.currentTime = 0;
+            projectVideo.classList.add('lazy-video');
+            projectVideo.classList.remove('loaded');
+            
+            // Show placeholder again
+            const videoContainer = projectVideo.parentElement;
+            const placeholder = videoContainer.querySelector('.video-loading-placeholder');
+            if (placeholder) {
+                placeholder.style.display = 'flex';
+                placeholder.innerHTML = 'Loading video...';
+                placeholder.style.color = '#999';
+            }
+        }
+        
         currentProject = null;
         
         // Remove scroll indicator
@@ -312,6 +483,19 @@ document.addEventListener('DOMContentLoaded', () => {
         currentImageIdx = (currentImageIdx + 1) % currentProject.images.length;
         updateMainImage();
     });
+
+    // Additional slider navigation
+    if (additionalPrevBtn) {
+        additionalPrevBtn.addEventListener('click', () => {
+            slideAdditional('prev');
+        });
+    }
+
+    if (additionalNextBtn) {
+        additionalNextBtn.addEventListener('click', () => {
+            slideAdditional('next');
+        });
+    }
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {

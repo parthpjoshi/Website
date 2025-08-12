@@ -363,9 +363,13 @@ section {
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 3rem;
     margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .team-member {
@@ -376,10 +380,54 @@ section {
     text-align: center;
 }
 
+.team-member.main-employee {
+    min-height: 420px; /* Larger cards for founders */
+    box-shadow: 0 10px 30px rgba(220, 140, 60, 0.15);
+    border: 2px solid rgba(220, 140, 60, 0.1);
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.team-member.main-employee:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(220, 140, 60, 0.25);
+}
+
+.team-member.regular-employee {
+    min-height: 280px; /* Smaller cards for employees */
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+    transform: scale(0.9);
+}
+
+.team-member.regular-employee .member-description {
+    display: none; /* Hide description for regular employees */
+}
+
 .member-image-wrapper {
     position: relative;
     overflow: hidden;
     height: 280px;
+}
+
+.team-member.main-employee .member-image-wrapper {
+    height: 280px;
+}
+
+.team-member.regular-employee .member-image-wrapper {
+    height: 200px;
+    border-radius: 5px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.team-member.regular-employee .member-image {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .member-image {
@@ -392,11 +440,37 @@ section {
     padding: 1.5rem;
 }
 
+.team-member.main-employee .member-info {
+    background: linear-gradient(135deg, rgba(220, 140, 60, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+    padding: 2rem 1.5rem;
+}
+
+.team-member.regular-employee .member-info {
+    padding: 1rem;
+    background: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 5px 5px;
+}
+
 .member-name {
     font-size: 1.3rem;
     font-weight: 700;
     color: #222;
     margin-bottom: 0.5rem;
+}
+
+.team-member.main-employee .member-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+}
+
+.team-member.regular-employee .member-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
 }
 
 .member-role {
@@ -408,6 +482,20 @@ section {
     letter-spacing: 0.5px;
 }
 
+.team-member.main-employee .member-role {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.8px;
+}
+
+.team-member.regular-employee .member-role {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
 .member-description {
     font-size: 0.9rem;
     line-height: 1.6;
@@ -417,8 +505,8 @@ section {
 /* Mobile Responsiveness for Team Section */
 @media (max-width: 1200px) {
     .team-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
 }
 
@@ -449,6 +537,11 @@ section {
     
     .member-image-wrapper {
         height: 300px;
+    }
+    
+    .team-member.main-employee,
+    .team-member.regular-employee {
+        min-height: auto;
     }
 }
 
@@ -1162,6 +1255,249 @@ section {
     
     .image-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Modal Video Section */
+.modal-video-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-video-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 70%);
+    pointer-events: none;
+}
+
+.modal-video-section h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 3rem;
+    display: none; /* Hide title for cleaner full-width look */
+}
+
+.video-container {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.video-container-fullwidth {
+    max-width: 85%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.project-video {
+    width: 100%;
+    height: auto;
+    min-height: 350px;
+    background: #000;
+    display: block;
+    border-radius: 20px;
+}
+
+/* Modal Spacing Section */
+.modal-spacing {
+    height: 0px;
+    background: #f8f9fa;
+}
+
+/* Video lazy loading */
+.project-video.lazy-video {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-video.lazy-video.loaded {
+    opacity: 1;
+}
+
+.video-loading-placeholder {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+    background-size: 200% 100%;
+    animation: videoLoading 2s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 1.2rem;
+    border-radius: 20px;
+}
+
+@keyframes videoLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Modal Additional Slider Section */
+.modal-additional-slider {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.modal-additional-slider h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 3rem;
+}
+
+.additional-slider-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.additional-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 2rem;
+    padding: 1rem 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.additional-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.slider-item {
+    flex: 0 0 300px;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.slider-item:hover {
+    transform: translateY(-5px);
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.slider-nav-btn {
+    background: rgb(220, 140, 60);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-nav-btn:hover {
+    background: rgb(184, 115, 48);
+    transform: scale(1.1);
+}
+
+/* Mobile Responsiveness for New Sections */
+@media (max-width: 768px) {
+    .modal-video-section {
+        padding: 40px 0;
+    }
+    
+    .video-container-fullwidth {
+        max-width: 95%;
+        border-radius: 15px;
+    }
+    
+    .project-video {
+        min-height: 220px;
+        border-radius: 15px;
+    }
+    
+    .modal-spacing {
+        height: 0px;
+    }
+    
+    .modal-additional-slider {
+        padding: 60px 0;
+    }
+    
+    .modal-video-section h3,
+    .modal-additional-slider h3 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .video-loading-placeholder {
+        height: 220px;
+        font-size: 1rem;
+        border-radius: 15px;
+    }
+}
+    
+    .slider-item {
+        flex: 0 0 250px;
+        height: 200px;
+    }
+    
+    .slider-nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+@media (max-width: 480px) {
+    .additional-slider {
+        gap: 1rem;
+    }
+    
+    .slider-item {
+        flex: 0 0 200px;
+        height: 150px;
+    }
+    
+    .video-container-fullwidth {
+        max-width: 98%;
+    }
+    
+    .project-video {
+        min-height: 200px;
+    }
+    
+    .video-loading-placeholder {
+        height: 200px;
     }
 }
 
