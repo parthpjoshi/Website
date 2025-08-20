@@ -414,6 +414,7 @@ section {
 
 .team-member.main-employee .member-image-wrapper {
     height: 280px;
+   
 }
 
 .team-member.regular-employee .member-image-wrapper {
@@ -432,8 +433,8 @@ section {
 
 .member-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 125%;
+    object-fit: fill;
 }
 
 .member-info {
