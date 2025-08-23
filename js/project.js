@@ -3,9 +3,10 @@ const projectData = {
     1: {
         title: "Project 1",
         description: "This is a comprehensive project showcasing modern design principles and cutting-edge technology. We implemented innovative solutions to meet the client's unique requirements and delivered exceptional results.",
-        client: "Premium Client",
-        duration: "4 months",
-        technology: "HTML5, CSS3, JavaScript, React",
+        client: "Karthikeya Residence",
+        duration: "Katraj, Pune",
+        technology: "40000 sq.ft.",
+        projectType: "Residential Apartment",
         video: "images/Project 1/Project 1.mp4",
         images: [
             "images/Project 1/1.jpg",
@@ -29,13 +30,61 @@ const projectData = {
     },
     2: {
         title: "Project 2",
-        description: "Coming soon - An exciting new project that will showcase our latest capabilities and innovative approach to problem-solving.",
-        client: "To be announced",
-        duration: "TBA",
-        technology: "TBA",
+        description: "This is a comprehensive project showcasing modern design principles and cutting-edge technology. We implemented innovative solutions to meet the client's unique requirements and delivered exceptional results.",
+        client: "Lilium Park",
+        duration: "Shikrapur, Pune",
+        technology: "80000 sq.ft.",
+        projectType: "Residential Apartment",
         video: null,
-        images: ["images/Project 1/2.jpg"], // Placeholder image
-        additionalSlides: ["images/Project 1/2.jpg"]
+        images: [
+            "images/Project 2/2nd_1.jpg",
+            "images/Project 2/2nd_2.jpg",
+            "images/Project 2/2nd_3.jpg",
+            "images/Project 2/2nd_4.jpg",
+            "images/Project 2/2nd_5.jpg",
+            "images/Project 2/2nd_6.jpg",
+            "images/Project 2/2nd_7.jpg",
+            "images/Project 2/2nd_8.jpg",
+            "images/Project 2/2nd_9.jpg",
+            "images/Project 2/2nd_10.jpg",
+            "images/Project 2/2nd_11.jpg"
+        ],
+        additionalSlides: [
+            "images/Project 2/2nd_1.jpg",
+            "images/Project 2/2nd_3.jpg",
+            "images/Project 2/2nd_5.jpg",
+            "images/Project 2/2nd_7.jpg",
+            "images/Project 2/2nd_9.jpg"
+        ]
+    },
+    3: {
+        title: "Project 3",
+        description: "This is a comprehensive project showcasing modern design principles and cutting-edge technology. We implemented innovative solutions to meet the client's unique requirements and delivered exceptional results.",
+        client: "Dr. Awanti's Dental Clinic",
+        duration: "Wadgaon Sheri, Pune",
+        technology: "900 sq.ft.",
+        projectType: "Commercial Interior",
+        areaLabel: "Carpet Area",
+        video: null,
+        images: [
+            "images/Project 3/1.png",
+            "images/Project 3/2.png",
+            "images/Project 3/3.png",
+            "images/Project 3/4.png",
+            "images/Project 3/5.png",
+            "images/Project 3/6.png",
+            "images/Project 3/7.png",
+            "images/Project 3/8.png",
+            "images/Project 3/9.png",
+            "images/Project 3/10.png"
+        ],
+        additionalSlides: [
+            "images/Project 3/1.png",
+            "images/Project 3/3.png",
+            "images/Project 3/5.png",
+            "images/Project 3/7.png",
+            "images/Project 3/9.png"
+        ]
     }
 };
 
@@ -83,6 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
         modalProjectClient.textContent = currentProject.client;
         modalProjectDuration.textContent = currentProject.duration;
         modalProjectTechnology.textContent = currentProject.technology;
+        
+        // Update the project type field
+        const projectTypeSpan = document.querySelector('#modalProjectType');
+        if (projectTypeSpan) {
+            projectTypeSpan.textContent = currentProject.projectType;
+        }
+        
+        // Update area label if custom label exists (for Project 3 - Carpet Area)
+        const areaLabelElement = document.querySelector('.detail-item:nth-child(3) strong');
+        if (areaLabelElement && currentProject.areaLabel) {
+            areaLabelElement.textContent = currentProject.areaLabel + ':';
+        } else if (areaLabelElement) {
+            areaLabelElement.textContent = 'Built-Up-Area:';
+        }
 
         // Update image counter
         totalImages.textContent = currentProject.images.length;
